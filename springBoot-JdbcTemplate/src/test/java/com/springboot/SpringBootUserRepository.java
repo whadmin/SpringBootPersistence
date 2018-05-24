@@ -10,10 +10,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.springboot.Application;
 import com.springboot.dao.UserRepository;
-import com.springboot.domain.User;
+import com.springboot.entiy.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = Application.class) // 指定spring-boot的启动类
+@SpringBootTest(classes = Application.class)
+// 指定spring-boot的启动类
 public class SpringBootUserRepository {
 
 	@Autowired
@@ -32,15 +33,14 @@ public class SpringBootUserRepository {
 
 	@Test
 	public void updateById() {
-		User newUser = new User(3, "JackChen", "JackChen@qq.com");
+		User newUser = new User().setId(2).setUserName("new").setPassword("new");
 		userRepository.update(newUser);
 		User newUser2 = userRepository.findUserById(newUser.getId());
 	}
 
 	@Test
 	public void createUser() {
-		User user = new User(0, "tom", "tom@gmail.com");
-		User savedUser = userRepository.create(user);
-
+		User newUser = new User().setUserName("userName").setPassword("password");
+		User savedUser = userRepository.create(newUser);
 	}
 }
