@@ -30,6 +30,11 @@ public class SpringBootUserRepository {
 	public void findUserById() {
 		User user = userRepository.findUserById(2);
 	}
+	
+	@Test
+	public void delete() {
+		userRepository.delete(4);
+	}
 
 	@Test
 	public void updateById() {

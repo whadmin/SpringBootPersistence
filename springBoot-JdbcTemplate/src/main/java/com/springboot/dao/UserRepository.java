@@ -68,9 +68,13 @@ public class UserRepository {
         return user;  
     }  
   
+    @Transactional(value = "druidTransactionManager")
     public void delete(final Integer id) {  
         final String sql = "delete from users where id=?";  
         jdbcTemplate.update(sql, new Object[] { id }, new int[] { java.sql.Types.INTEGER });  
+        if (true) {
+            throw new RuntimeException();
+            }
     }  
   
     public void update(final User user) {  
