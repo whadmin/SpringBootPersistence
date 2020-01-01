@@ -1,0 +1,23 @@
+spring:
+  # 数据源配置
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    schema: classpath:db/schema.sql
+    data: classpath:db/data.sql
+    url: jdbc:mysql://127.0.0.1:3306/org.springboot.data.mybatisplus.mapper?characterEncoding=utf8&serverTimezone=UTC
+    username: root
+    password: roottest
+
+# 日志配置
+logging:
+  level:
+    com.baomidou.mybatisplus.samples: debug
+
+# MyBatis-Plus 配置
+# 参考 MybatisPlusAutoConfiguration - MybatisPlusProperties
+mybatis-plus:
+  type-aliases-package: org.springboot.data.org.springboot.data.mybatisplus.mapper.entity
+  mapper-locations: classpath:org/springboot/data/org.springboot.data.mybatisplus.mapper/mapper/*.xml
+  configuration:
+    # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

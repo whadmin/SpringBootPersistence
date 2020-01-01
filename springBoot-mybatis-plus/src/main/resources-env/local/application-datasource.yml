@@ -1,0 +1,9 @@
+spring:
+  # 数据源配置
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    schema: classpath:db/schema.sql
+    data: classpath:db/data.sql
+    url: jdbc:mysql://127.0.0.1:3306/org.springboot.data.mybatisplus.mapper?characterEncoding=utf8&serverTimezone=UTC
+    username: root
+    password: roottest

@@ -1,0 +1,22 @@
+# 日志配置
+logging:
+  level:
+    com.baomidou.mybatisplus.samples: debug
+
+# MyBatis-Plus 配置
+# 对应配置类  MybatisPlusAutoConfiguration - MybatisPlusProperties
+mybatis-plus:
+  type-aliases-package: org.springboot.data.mybatisplus.entity
+  type-enums-package: org.springboot.data.mybatisplus.enums
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  configuration:
+    # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # 设置默认枚举类型处理器
+    default-enum-type-handler: org.apache.ibatis.type.EnumOrdinalTypeHandler
+  # 对应配置类  MybatisPlusAutoConfiguration - MybatisPlusProperties - GlobalConfig
+  global-config:
+    banner: false
+    db-config:
+      logic-delete-value: 0 #默认值1
+      logic-not-delete-value: 1 #默认值0

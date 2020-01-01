@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.springboot.data.mybatisplus.mapper.UserMapper">
+    <resultMap id="userChildrenMap" type="org.springboot.data.mybatisplus.entity.resultMap.UserAddress">
+        <id column="id" property="id"/>
+        <result column="age" property="age"/>
+        <result column="email" property="email"/>
+        <result column="name" property="name"/>
+        <collection property="c" ofType="org.springboot.data.mybatisplus.entity.Address" columnPrefix="c_">
+            <id column="id" property="id"/>
+            <result column="description" property="description"/>
+            <result column="user_id" property="userId"/>
+        </collection>
+    </resultMap>
+
+    <update id="updateUserNoWhere" parameterType="org.springboot.data.mybatisplus.entity.User">
+        update mi_user
+        <set>
+            <trim suffixOverrides=",">
+                <if test="name != null and name != ''">
+                    name = #{name},
+                </if>
+                <if test="age != null ">
+                    age = #{age},
+                </if>
+            </trim>
+        </set>
+    </update>
+
+    <delete id="deleteUserNoWhere" parameterType="org.springboot.data.mybatisplus.entity.User">
+        delete from  mi_user
+    </delete>
+
+
+    <select id="myPageleftjoin" resultMap="userChildrenMap">
+        select
+        u.id,
+        u.name,
+        u.email,
+        u.age,
+        c.id as "c_id",
+        c.description as "c_description",
+        c.user_id as "c_user_id"
+        from mi_user u
+        left join mi_address c
+        on c.user_id = u.id
+        <where>
+            <if test="pg.selectInt != null and pg.selectInt >0 ">
+                and u.age = #{pg.selectInt}
+            </if>
+            <if test="pg.selectStr != null and pg.selectStr != ''">
+                and c.description = #{pg.selectStr}
+            </if>
+        </where>
+    </select>
+
+
+    <select id="myPageParamSomeReturnMyPage" resultType="org.springboot.data.mybatisplus.entity.User">
+        select *
+        from mi_user
+        <where>
+            <trim prefix="(" suffix=")" prefixOverrides="and">
+                <if test="pg.selectInt!=null and pg.selectInt >0 ">
+                    AND age = #{pg.selectInt}
+                </if>
+                <if test="pg.selectStr!=null and pg.selectStr !=''">
+                    AND name = #{pg.selectStr}
+                </if>
+            </trim>
+            <trim prefix="or(" suffix=")" prefixOverrides="and">
+                <if test="ps.yihao!=null and ps.yihao >0 ">
+                    AND age = #{ps.yihao}
+                </if>
+                <if test="ps.erhao!=null and ps.erhao !=''">
+                    AND name = #{ps.erhao}
+                </if>
+            </trim>
+        </where>
+    </select>
+
+
+    <select id="myPageMapReturnMyPage" resultType="org.springboot.data.mybatisplus.entity.User">
+        select *
+        from mi_user
+        <where>
+            <trim prefix="(" suffix=")" prefixOverrides="and">
+                <if test="pg.selectInt!=null and pg.selectInt >0 ">
+                    AND age = #{pg.selectInt}
+                </if>
+                <if test="pg.selectStr!=null and pg.selectStr !=''">
+                    AND name = #{pg.selectStr}
+                </if>
+            </trim>
+            <trim prefix="or(" suffix=")" prefixOverrides="and">
+                <if test="map.yihao!=null and map.yihao >0 ">
+                    AND age = #{map.yihao}
+                </if>
+                <if test="map.erhao!=null and map.erhao !=''">
+                    AND name = #{map.erhao}
+                </if>
+            </trim>
+        </where>
+    </select>
+
+    <select id="myPageParamSomeReturnList" resultType="org.springboot.data.mybatisplus.entity.User">
+        select *
+        from mi_user
+        <where>
+            <trim prefix="(" suffix=")" prefixOverrides="and">
+                <if test="pg.selectInt!=null and pg.selectInt >0 ">
+                    AND age = #{pg.selectInt}
+                </if>
+                <if test="pg.selectStr!=null and pg.selectStr !=''">
+                    AND name = #{pg.selectStr}
+                </if>
+            </trim>
+            <trim prefix="or(" suffix=")" prefixOverrides="and">
+                <if test="ps.yihao!=null and ps.yihao >0 ">
+                    AND age = #{ps.yihao}
+                </if>
+                <if test="ps.erhao!=null and ps.erhao !=''">
+                    AND name = #{ps.erhao}
+                </if>
+            </trim>
+        </where>
+    </select>
+
+
+    <select id="myPageMapReturnList" resultType="org.springboot.data.mybatisplus.entity.User">
+        select *
+        from mi_user
+        <where>
+            <trim prefix="(" suffix=")" prefixOverrides="and">
+                <if test="pg.selectInt!=null and pg.selectInt >0 ">
+                    AND age = #{pg.selectInt}
+                </if>
+                <if test="pg.selectStr!=null and pg.selectStr !=''">
+                    AND name = #{pg.selectStr}
+                </if>
+            </trim>
+            <trim prefix="or(" suffix=")" prefixOverrides="and">
+                <if test="map.yihao!=null and map.yihao >0 ">
+                    AND age = #{map.yihao}
+                </if>
+                <if test="map.erhao!=null and map.erhao !=''">
+                    AND name = #{map.erhao}
+                </if>
+            </trim>
+        </where>
+    </select>
+
+    <select id="rowBoundList" resultType="org.springboot.data.mybatisplus.entity.User">
+        select *
+        from mi_user
+        <where>
+            <if test="map.yihao!=null and map.yihao >0 ">
+                AND age = #{map.yihao}
+            </if>
+            <if test="map.erhao!=null and map.erhao !=''">
+                AND name = #{map.erhao}
+            </if>
+        </where>
+    </select>
+</mapper>
